@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeastFusion NYC | Corporate Catering from Local Restaurants</title>
+    <style>
+        :root {
+            --primary: #2c4d84;
+            --secondary: #f37940;
+            --light: #f8f9fa;
+            --dark: #333;
+            --success: #28a745;
+            --border-radius: 6px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            margin-left: 10px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e3a64;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e56830;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-bar {
+            background-color: white;
+            border-radius: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 6px;
+            display: flex;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 24px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #e56830;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            color: var(--primary);
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cuisines {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .cuisine-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .cuisine-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .cuisine-img {
+            height: 160px;
+            background-color: #eee;
+            position: relative;
+        }
+        
+        .cuisine-content {
+            padding: 20px;
+        }
+        
+        .cuisine-content h3 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        
+        .cuisine-content p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .cuisine-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .features {
+            background-color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .feature-icon {
+            background-color: var(--light);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+        
+        .feature-item h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .feature-item p {
+            color: #666;
+        }
+        
+        .how-it-works {
+            background-color: #f8f9fa;
+        }
+        
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .order-section {
+            background-color: white;
+        }
+        
+        .order-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .order-form {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .order-summary {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .testimonials {
+            background-color: #f8f9fa;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #eee;
+        }
+        
+        .testimonial-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .testimonial-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .testimonial-stars {
+            color: gold;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-content {
+            color: #555;
+            font-style: italic;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icon {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 100px auto;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .order-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <div class="logo-icon">🍽️</div>
+                    Feast<span>Fusion</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#cuisines">Cuisines</a></li>
+                    <li><a href="#order">Place Order</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
+                    <button class="btn btn-primary" onclick="openModal('signup')">Sign Up</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Authentic NYC Cultural Catering <br>for Your Office</h1>
+            <p>Support local restaurants and treat your team to diverse, authentic cuisines from across the city. Perfect for meetings, team lunches, and special events.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for a cuisine, restaurant, or dish...">
+                <button>Find Food</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Cuisines Section -->
+    <section class="section" id="cuisines">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explore Diverse Cuisines</h2>
+                <p>From authentic Thai and Italian to traditional Mexican and Japanese, discover a world of flavors from local NYC restaurants.</p>
+            </div>
+            
+            <div class="cuisines">
+                <!-- Cuisine Card 1 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <span class="cuisine-badge">Popular</span>
+                    <div class="cuisine-content">
+                        <h3>Italian</h3>
+                        <p>Authentic pasta, pizza, and more from family-owned trattorias across NYC.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 2 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <div class="cuisine-content">
+                        <h3>Mexican</h3>
+                        <p>Tacos, enchiladas, and other traditional fare from local taquerias.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 3 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <span class="cuisine-badge">New</span>
+                    <div class="cuisine-content">
+                        <h3>Thai</h3>
+                        <p>Spicy, sweet, and savory dishes from family-owned Thai kitchens.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 4 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <div class="cuisine-content">
+                        <h3>Indian</h3>
+                        <p>Flavorful curries, tandoori specialties, and regional favorites.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 5 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <div class="cuisine-content">
+                        <h3>Japanese</h3>
+                        <p>Fresh sushi, ramen, and other Japanese classics from local chefs.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 6 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <span class="cuisine-badge">Trending</span>
+                    <div class="cuisine-content">
+                        <h3>Mediterranean</h3>
+                        <p>Healthy and delicious options from across the Mediterranean region.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 7 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <div class="cuisine-content">
+                        <h3>Chinese</h3>
+                        <p>Regional specialties from authentic Chinese restaurants in NYC.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+                
+                <!-- Cuisine Card 8 -->
+                <div class="cuisine-card">
+                    <div class="cuisine-img" style="background-image: url('/api/placeholder/400/300'); background-size: cover;"></div>
+                    <div class="cuisine-content">
+                        <h3>Korean</h3>
+                        <p>BBQ, bibimbap, and other Korean favorites from local restaurants.</p>
+                        <a href="#order" class="btn btn-outline">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="section features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose FeastFusion?</h2>
+                <p>We connect your office with authentic local restaurants while making the ordering process simple and stress-free.</p>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-item">
+                    <div class="feature-icon">📍</div>
+                    <h3>Local Restaurants</h3>
+                    <p>Support small, family-owned restaurants across NYC neighborhoods and cultures.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-item">
+                    <div class="feature-icon">🕒</div>
+                    <h3>Reliable Scheduling</h3>
+                    <p>Schedule deliveries in advance or order for same-day with guaranteed on-time arrival.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-item">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Group Ordering</h3>
+                    <p>Allow team members to select their own meals while maintaining a single order.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-item">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Dietary Options</h3>
+                    <p>Easily filter for vegan, vegetarian, gluten-free, and other dietary preferences.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-item">
+                    <div class="feature-icon">🧾</div>
+                    <h3>Easy Billing</h3>
+                    <p>Simplified invoicing, expense reporting, and accounting integration.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-item">
+                    <div class="feature-icon">💝</div>
+                    <h3>Cultural Experience</h3>
+                    <p>Each order includes information about the cuisine, restaurant story, and cultural context.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Ordering delicious, authentic cultural cuisine for your office is simple with FeastFusion.</p>
+            </div>
+            
+            <div class="steps">
+                <!-- Step 1 -->
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Choose Your Cuisine</h3>
+                        <p>Browse our selection of authentic cultural cuisines from local NYC restaurants.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Customize Your Order</h3>
+                        <p>Select your dishes, specify the number of people, and note any dietary restrictions or preferences.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Schedule Delivery</h3>
+                        <p>Choose a date and time for delivery, whether it's same-day or scheduled weeks in advance.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Enjoy Your Meal</h3>
+                        <p>We'll handle everything from restaurant coordination to on-time delivery, so you can focus on enjoying your authentic cultural feast.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Order Section -->
+    <section class="section order-section" id="order">
+        <div class="container">
+            <div class="section-title">
+                <h2>Place Your Order</h2>
+                <p>Customize your catering experience with our easy-to-use order form.</p>
+            </div>
+            
+            <div class="order-container">
+                <div class="order-form">
+                    <form id="catering-form">
+                        <!-- Cuisine Selection -->
+                        <div class="form-group">
+                            <label for="cuisine">Select Cuisine</label>
+                            <select id="cuisine" class="form-control">
+                                <option value="">-- Select a Cuisine --</option>
+                                <option value="italian">Italian</option>
+                                <option value="mexican">Mexican</option>
+                                <option value="thai">Thai</option>
+                                <option value="indian">Indian</option>
+                                <option value="japanese">Japanese</option>
+                                <option value="mediterranean">Mediterranean</option>
+                                <option value="chinese">Chinese</option>
+                                <option value="korean">Korean</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Date and Time -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Delivery Date</label>
+                                <input type="date" id="date" class="form-control" min="2025-02-28">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="time">Delivery Time</label>
+                                <input type="time" id="time" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <!-- Number of People and Budget -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="people">Number of People</label>
+                                <input type="number" id="people" class="form-control" min="5" placeholder="Minimum 5 people">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="budget">Budget per Person ($)</label>
+                                <input type="number" id="budget" class="form-control" min="15" placeholder="Minimum $15">
+                            </div>
+                        </div>
+                        
+                        <!-- Dietary Restrictions -->
+                        <div class="form-group">
+                            <label>Dietary Restrictions</label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+                                <label style="display: flex; align-items: center;">
+                                    <input type="checkbox" name="dietary" value="vegetarian"> 
+                                    <span style="margin-left: 5px;">Vegetarian</span>
+                                </label>
+                                <label style="display: flex; align-items: center;">
+                                    <input type="checkbox" name="dietary" value="vegan"> 
+                                    <span style="margin-left: 5px;">Vegan</span>
+                                </label>
+                                <label style="display: flex; align-items: center;">
+                                    <input type="checkbox" name="dietary" value="gluten-free"> 
+                                    <span style="margin-left: 5px;">Gluten-Free</span>
+                                </label>
+                                <label style="display: flex; align-items: center;">
+                                    <input type="checkbox" name="dietary" value="dairy-free"> 
+                                    <span style="margin-left: 5px;">Dairy-Free</span>
+                                </label>
+                                <label style="display: flex; align-
